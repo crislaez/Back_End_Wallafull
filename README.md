@@ -1,4 +1,4 @@
-## (front-end) WALLAFULL 
+## (back-end) WALLAFULL 
 
 WALLAFULL es una web para la compra - venta de productos (en construccion)
 
