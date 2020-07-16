@@ -12,6 +12,29 @@ function endPointProduct(router){
 
     //registro usuarios ruta -> http://localhost:3001/api/addProduct
     router.post('/addProduct',authFunction,multipartMiddleware, (req, res) => {
+        let foto_1,foto_2,foto_3,foto_4,foto_5,foto_6,foto_7,foto_8,foto_9,foto_10;
+
+        const comprobarReqFoto = (reqFoto) => {
+            let foto;        
+            if(reqFoto){
+                foto = process.env.RUTAIMAGEN+reqFoto.path.split('\\')[reqFoto.path.split('\\').length -1];
+            }else{
+                foto = '';
+            }
+            return foto;
+        };
+
+        foto_1 = comprobarReqFoto(req.files.foto_1);
+        foto_2 = comprobarReqFoto(req.files.foto_2);
+        foto_3 = comprobarReqFoto(req.files.foto_3);
+        foto_4 = comprobarReqFoto(req.files.foto_4);
+        foto_5 = comprobarReqFoto(req.files.foto_5);
+        foto_6 = comprobarReqFoto(req.files.foto_6);
+        foto_7 = comprobarReqFoto(req.files.foto_7);
+        foto_8 = comprobarReqFoto(req.files.foto_8);
+        foto_9 = comprobarReqFoto(req.files.foto_9);
+        foto_10 = comprobarReqFoto(req.files.foto_10);        
+
         let product = 
             {
                 id_producto:'',
@@ -21,16 +44,16 @@ function endPointProduct(router){
                 precio:req.body.precio,
                 moneda:req.body.moneda,
                 descripcion:req.body.descripcion,
-                foto_1:process.env.RUTAIMAGEN+req.files.foto_1.path.split('\\')[req.files.foto_1.path.split('\\').length -1],
-                foto_2:process.env.RUTAIMAGEN+req.files.foto_2.path.split('\\')[req.files.foto_1.path.split('\\').length -1],
-                foto_3:process.env.RUTAIMAGEN+req.files.foto_3.path.split('\\')[req.files.foto_1.path.split('\\').length -1],
-                foto_4:process.env.RUTAIMAGEN+req.files.foto_4.path.split('\\')[req.files.foto_1.path.split('\\').length -1],
-                foto_5:process.env.RUTAIMAGEN+req.files.foto_5.path.split('\\')[req.files.foto_1.path.split('\\').length -1],
-                foto_6:process.env.RUTAIMAGEN+req.files.foto_6.path.split('\\')[req.files.foto_1.path.split('\\').length -1],
-                foto_7:process.env.RUTAIMAGEN+req.files.foto_7.path.split('\\')[req.files.foto_1.path.split('\\').length -1],
-                foto_8:process.env.RUTAIMAGEN+req.files.foto_8.path.split('\\')[req.files.foto_1.path.split('\\').length -1],
-                foto_9:process.env.RUTAIMAGEN+req.files.foto_9.path.split('\\')[req.files.foto_1.path.split('\\').length -1],
-                foto_10:process.env.RUTAIMAGEN+req.files.foto_10.path.split('\\')[req.files.foto_1.path.split('\\').length -1],
+                foto_1:foto_1,
+                foto_2:foto_2,
+                foto_3:foto_3,
+                foto_4:foto_4,
+                foto_5:foto_5,
+                foto_6:foto_6,
+                foto_7:foto_7,
+                foto_8:foto_8,
+                foto_9:foto_9,
+                foto_10:foto_10,
                 ubicacion:req.body.ubicacion
             };
 
