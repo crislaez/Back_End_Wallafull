@@ -1,12 +1,12 @@
 'use strict';
 
-const conexio = require('./Conection');
+const conexion = require('./Conection');
 
 //agregar producto
 const addProduct = (product, callback) => {
-    // conexio.connect();
-    if(conexio){
-        conexio.query(`INSERT INTO producto SET ?`,product, (err, res) => {
+    // conexion.connect();
+    if(conexion){
+        conexion.query(`INSERT INTO productos SET ?`,product, (err, res) => {
             if(err){
                 console.log(err.code);
                 callback(err, res);
@@ -15,14 +15,14 @@ const addProduct = (product, callback) => {
             }
         })
     }
-    // conexio.end();
+    // conexion.end();
 }
 
 //obtener productos por usuario
 const getProductByIdUser = (id, callback) => {
-    // conexio.connect();
-    if(conexio){
-        conexio.query(`SELECT producto.id_producto, producto.id_usuario, producto.categoria, producto.tipo_producto, producto.precio, producto.moneda, producto.descripcion, producto.foto_1, producto.foto_2, producto.foto_3, producto.foto_4, producto.foto_5, producto.foto_6, producto.foto_7, producto.foto_8, producto.foto_9, producto.foto_10, usuarios.nombre, usuarios.email FROM producto INNER JOIN usuarios ON producto.id_usuario = usuarios.id_usuario WHERE producto.id_usuario = ${id}`,(err, res) => {
+    // conexion.connect();
+    if(conexion){
+        conexion.query(`SELECT productos.id_producto, productos.id_usuario, productos.categoria, productos.tipo_producto, productos.precio, productos.moneda, productos.descripcion, productos.publicacion, productos.foto_1, productos.foto_2, productos.foto_3, productos.foto_4, productos.foto_5, productos.foto_6, productos.foto_7, productos.foto_8, productos.foto_9, productos.foto_10, usuarios.nombre, usuarios.email FROM productos INNER JOIN usuarios ON productos.id_usuario = usuarios.id_usuario WHERE productos.id_usuario = ${conexion.escape(id)}`,(err, res) => {
             if(err){
                 console.log(err);
                 callback(err, res);
@@ -31,11 +31,28 @@ const getProductByIdUser = (id, callback) => {
             }
         })
     }
-    // conexio.end();
+    // conexion.end();
+}
+
+//borrar producto
+const removeProductByIdProduct = (id, callback) => {
+    // conexion.connect();
+    if(conexion){
+        conexion.query(`DELETE FROM productos WHERE id_producto = ${conexion.escape(id)}`,(err, res) => {
+            if(err){
+                console.log(err.code);
+                callback(null, res);
+            }else{
+                callback(null, res);
+            }
+        })
+    }
+    // conexion.end();
 }
 
 module.exports = 
     {
         addProduct,
-        getProductByIdUser
+        getProductByIdUser,
+        removeProductByIdProduct
     }

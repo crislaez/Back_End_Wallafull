@@ -10,7 +10,7 @@ const multipartMiddleware = multipart({uploadDir: __dirname + '/../img'})
 
 function endPointProduct(router){
 
-    //registro usuarios ruta -> http://localhost:3001/api/addProduct
+    //agregar producto ruta -> http://localhost:3001/api/addProduct
     router.post('/addProduct',authFunction,multipartMiddleware, (req, res) => {
         let foto_1,foto_2,foto_3,foto_4,foto_5,foto_6,foto_7,foto_8,foto_9,foto_10;
 
@@ -44,6 +44,7 @@ function endPointProduct(router){
                 precio:req.body.precio,
                 moneda:req.body.moneda,
                 descripcion:req.body.descripcion,
+                publicacion:req.body.publicacion,
                 foto_1:foto_1,
                 foto_2:foto_2,
                 foto_3:foto_3,
@@ -76,6 +77,18 @@ function endPointProduct(router){
             res.status(200).json({success:true, data:data});
         })
     });
+
+    //borrar producto ruta -> http://localhost:3001/api/removeProductByIdProduct/:id
+    router.delete('/removeProductByIdProduct/:id',authFunction,(req, res) => {
+        let id = req.params.id;
+
+        Database.removeProductByIdProduct(id,(err, data) => {
+            if(err) return res.status(500).json({success:false, message:`Error al realizar la peticion:${err}`});
+            if(!data) return res.status(404).json({success:false, message:`Error al borrar el producto`});
+            
+            res.status(200).json({success:true, data:data});
+        })
+    })
 }
 
 module.exports = endPointProduct;
