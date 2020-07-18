@@ -33,8 +33,25 @@ const login = (user, callback) => {
     }
     // conexion.end();
 }
+
+//modificar
+const updateUser = (user, callback) => {
+    // conexion.connect();
+    if(conexion){
+        conexion.query(`UPDATE usuarios SET foto_perfil = ${conexion.escape(user.foto_perfil)}, foto_banner = ${conexion.escape(user.foto_banner)}, nombre = ${conexion.escape(user.nombre)} WHERE id_usuario = ${conexion.escape(user.id_usuario)}`,(err, res) => {
+            if(err){
+                console.log(err.code);
+                callback(err, res);
+            }else{
+                callback(null, res);
+            }
+        })
+    }
+    // conexion.end();
+}
 module.exports = 
     {
         addUser,
-        login
+        login,
+        updateUser
     }

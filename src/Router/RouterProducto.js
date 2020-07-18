@@ -2,11 +2,11 @@
 
 require('dotenv').config();
 const Database = require('../Database/QueryProducto');
-// const jwt = require('jsonwebtoken');
+
 const authFunction = require('../Middleware/AuthFunction');
 
 const multipart = require('connect-multiparty');
-const multipartMiddleware = multipart({uploadDir: __dirname + '/../img'})
+const multipartMiddleware = multipart({uploadDir: __dirname + '/../img'});
 
 function endPointProduct(router){
 
