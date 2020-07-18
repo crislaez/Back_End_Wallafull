@@ -18,7 +18,9 @@ function endPointUser(router){
                 email:req.body.email,
                 clave:req.body.clave,
                 foto_perfil:'',
-                foto_banner:''
+                foto_banner:'',
+                nacimiento:'',
+                sexo:''
             };
         
         Database.addUser(user, (err, data) => {
@@ -50,11 +52,12 @@ function endPointUser(router){
     router.put('/updateUser/:id',authFunction,multipartMiddleware,(req, res) => {
         let user = 
             {
-                id_usuario:req.params.id_usuario,
+                id_usuario:req.params.id,
                 foto_perfil:process.env.RUTAIMAGEN+req.files.foto_perfil.path.split('\\')[req.files.foto_perfil.path.split('\\').length -1],
                 foto_banner:process.env.RUTAIMAGEN+req.files.foto_banner.path.split('\\')[req.files.foto_banner.path.split('\\').length -1],
                 nombre:req.body.nombre
             };
+            console.log(user)
 
         Database.updateUser(user,(err, data) => {
             if(err) return req.status(500).json({success:false, message:`Error al realizar la peticion:${err}`});
