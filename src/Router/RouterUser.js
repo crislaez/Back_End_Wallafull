@@ -48,7 +48,7 @@ function endPointUser(router){
         })
     });
 
-    //login ruta -> http://localhost:3001/api/updateUser/:id
+    //actualizar datos ruta -> http://localhost:3001/api/updateUser/:id
     router.put('/updateUser/:id',authFunction,multipartMiddleware,(req, res) => {
         let user = 
             {
@@ -62,6 +62,23 @@ function endPointUser(router){
         Database.updateUser(user,(err, data) => {
             if(err) return req.status(500).json({success:false, message:`Error al realizar la peticion:${err}`});
             if(!data) return req.status(404).json({success:false, message:`Error al actualizar los datos`});
+
+            res.status(200).json({success:true, data:data});
+        })
+    });
+
+    //actualizar datos de la cuenta ruta -> http://localhost:3001/api/updateAccountUser/:id
+    router.put('/updateAccountUser/:id',authFunction,(req, res) => {
+        let user = 
+            {
+                id_usuario:req.params.id,
+                nacimiento:req.body.nacimiento,
+                sexo:req.body.sexo
+            }
+
+        Database.updateAccountUser(user, (err, data) => {
+            if(err) return res.status(500).json({success:false, message:`Error al realizar la peticion: ${err}`});
+            if(!data) return res.status(404).json({success:false, message:`Error al intentar actualizar los datos`});
 
             res.status(200).json({success:true, data:data});
         })

@@ -88,7 +88,19 @@ function endPointProduct(router){
             
             res.status(200).json({success:true, data:data});
         })
-    })
+    });
+
+    //mostrar producto por id ruta -> http://localhost:3001/api/getProductByIdProduct/:id
+    router.get('/getProductByIdProduct/:id',(req, res) => {
+        let id = req.params.id;
+
+        Database.getProductByIdProduct(id, (err, data) => {
+            if(err) return res.status(500).json({success:false, message:`Error al realizar la peticion:${err}`});
+            if(!data) return res.status(404).json({success:false, message:`Error al devolver el producto`});
+            
+            res.status(200).json({success:true, data:data})
+        })
+    });
 }
 
 module.exports = endPointProduct;

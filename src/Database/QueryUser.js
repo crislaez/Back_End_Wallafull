@@ -49,9 +49,27 @@ const updateUser = (user, callback) => {
     }
     // conexion.end();
 }
+
+//atualizar datos
+const updateAccountUser = (user, callback) => {
+    // conexion.connect();
+    if(conexion){
+        conexion.query(`UPDATE usuarios SET nacimiento = ${conexion.escape(user.nacimiento)}, sexo = ${conexion.escape(user.sexo)} WHERE id_usuario = ${conexion.escape(user.id_usuario)}`,(err, res) => {
+            if(err){
+                console.log(err.code);
+                callback(err, res);
+            }else{
+                callback(null, res);
+            }
+        })
+    }
+    // conexion.end();
+} 
+
 module.exports = 
     {
         addUser,
         login,
-        updateUser
+        updateUser,
+        updateAccountUser
     }
